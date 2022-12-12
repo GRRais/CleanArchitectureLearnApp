@@ -2,8 +2,10 @@ package ru.rayanis.cleanarchitecturelearnapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.rayanis.cleanarchitecturelearnapp.data.repository.UserRepositoryImpl
 import ru.rayanis.cleanarchitecturelearnapp.databinding.ActivityMainBinding
 import ru.rayanis.cleanarchitecturelearnapp.domain.models.SaveUserNameParam
+import ru.rayanis.cleanarchitecturelearnapp.domain.repository.UserRepository
 import ru.rayanis.cleanarchitecturelearnapp.domain.usecase.GetUserNameUseCase
 import ru.rayanis.cleanarchitecturelearnapp.domain.usecase.SaveUserNameUseCase
 
@@ -11,8 +13,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
 
-    private val getUserNameUseCase = GetUserNameUseCase()
-    private val saveUserNameUseCase = SaveUserNameUseCase()
+    private val userRepository by lazy(LazyThreadSafetyMode.NONE) { UserRepositoryImpl(context = applicationContext)}
+    private val getUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { GetUserNameUseCase(userRepository = userRepository)}
+    private val saveUserNameUseCase by lazy(LazyThreadSafetyMode.NONE) { SaveUserNameUseCase(userRepository = userRepository)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,13 @@
 package ru.rayanis.cleanarchitecturelearnapp.app
 
-class App {
+import android.app.Application
+import ru.rayanis.cleanarchitecturelearnapp.di.AppComponent
+
+class App: Application() {
+    lateinit var appComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent =
+    }
 }

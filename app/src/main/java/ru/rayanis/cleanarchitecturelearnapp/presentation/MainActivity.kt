@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.rayanis.cleanarchitecturelearnapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
 
-    private lateinit var vm: MainViewModel
+    private val vm by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
 
         Log.e("AAA" , "Activity created")
-
-        vm = ViewModelProvider(
-            this ,
-            MainViewModelFactory(this)
-        )[MainViewModel::class.java]
 
         vm.resultLive.observe(this) {
             b.dataTextView.text = it

@@ -2,15 +2,20 @@ package ru.rayanis.cleanarchitecturelearnapp.presentation
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
 import ru.rayanis.cleanarchitecturelearnapp.databinding.ActivityMainBinding
 
+@EntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
 
-    private lateinit var vm: MainViewModel
+    private val vm: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(b.root)
 
         Log.e("AAA" , "Activity created")
-
-        vm = ViewModelProvider(
-            this ,
-            MainViewModelFactory(this)
-        )[MainViewModel::class.java]
 
         vm.resultLive.observe(this) {
             b.dataTextView.text = it

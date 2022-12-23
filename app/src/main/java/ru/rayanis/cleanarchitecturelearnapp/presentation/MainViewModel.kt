@@ -13,8 +13,8 @@ class MainViewModel(
     private val saveUserNameUseCase: SaveUserNameUseCase
 ) : ViewModel() {
 
-    private val _resultLive = MutableLiveData<String>()
-    val resultLive: LiveData<String> = _resultLive
+    private val _stateLive = MutableLiveData<MainState>()
+    val stateLive: LiveData<MainState> = _stateLive
 
     init {
         Log.e("AAA", "VM created")
@@ -36,14 +36,14 @@ class MainViewModel(
         }
     }
 
-    fun save(text: String) {
+    private fun save(text: String) {
         val params = SaveUserNameParam(name = text)
         val resultData = saveUserNameUseCase.execute(param = params)
-        _resultLive.value = "Save result = $resultData"
+        _stateLive.value = "Save result = $resultData"
     }
 
-    fun load() {
+    private fun load() {
         val userName = getUserNameUseCase.execute()
-        _resultLive.value = "${userName.firstName} ${userName.lastName}"
+        _stateLive.value = "${userName.firstName} ${userName.lastName}"
     }
 }

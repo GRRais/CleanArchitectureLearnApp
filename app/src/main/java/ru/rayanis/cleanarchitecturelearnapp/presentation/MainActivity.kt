@@ -3,7 +3,6 @@ package ru.rayanis.cleanarchitecturelearnapp.presentation
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.rayanis.cleanarchitecturelearnapp.databinding.ActivityMainBinding
 
@@ -20,17 +19,17 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("AAA" , "Activity created")
 
-        vm.resultLive.observe(this) {
+        vm.stateLive.observe(this) {
             b.dataTextView.text = it
         }
 
         b.sendButton.setOnClickListener {
             val text = b.dataEditView.text.toString()
-            vm.save(text)
+            vm.send(SaveEvent(text = text))
         }
 
         b.receiveButton.setOnClickListener {
-            vm.load()
+            vm.send(LoadEvent())
         }
     }
 }

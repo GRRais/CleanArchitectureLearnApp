@@ -9,16 +9,14 @@ import ru.rayanis.cleanarchitecturelearnapp.di.appModule
 import ru.rayanis.cleanarchitecturelearnapp.di.dataModule
 import ru.rayanis.cleanarchitecturelearnapp.di.domainModule
 
-class App : Application() {
+class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@App)
-            modules(listOf(appModule , domainModule , dataModule))
+            modules(listOf(appModule, dataModule, domainModule))
         }
-
     }
 }

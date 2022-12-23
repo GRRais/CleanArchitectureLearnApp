@@ -11,7 +11,7 @@ import ru.rayanis.cleanarchitecturelearnapp.domain.usecase.SaveUserNameUseCase
 class MainViewModel(
     private val getUserNameUseCase: GetUserNameUseCase,
     private val saveUserNameUseCase: SaveUserNameUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _resultLive = MutableLiveData<String>()
     val resultLive: LiveData<String> = _resultLive
@@ -23,6 +23,17 @@ class MainViewModel(
     override fun onCleared() {
         Log.e("AAA", "VM cleared")
         super.onCleared()
+    }
+
+    fun send(event: MainEvent) {
+        when (event) {
+            is SaveEvent -> {
+                save(event.text)
+            }
+            is LoadEvent -> {
+                load()
+            }
+        }
     }
 
     fun save(text: String) {

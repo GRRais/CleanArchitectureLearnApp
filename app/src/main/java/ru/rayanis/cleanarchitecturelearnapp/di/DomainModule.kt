@@ -4,7 +4,8 @@ import org.koin.dsl.module
 import ru.rayanis.cleanarchitecturelearnapp.domain.usecase.GetUserNameUseCase
 import ru.rayanis.cleanarchitecturelearnapp.domain.usecase.SaveUserNameUseCase
 
-val domainModule = module {
+val domainModule = module{
+
     factory<GetUserNameUseCase> {
         GetUserNameUseCase(userRepository = get())
     }
@@ -12,4 +13,5 @@ val domainModule = module {
     factory<SaveUserNameUseCase> {
         SaveUserNameUseCase(userRepository = get())
     }
+
 }

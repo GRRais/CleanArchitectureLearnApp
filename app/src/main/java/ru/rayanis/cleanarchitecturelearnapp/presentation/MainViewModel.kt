@@ -18,6 +18,11 @@ class MainViewModel(
 
     init {
         Log.e("AAA", "VM created")
+        _stateLive.value = MainState(
+            saveResult = false,
+            firstName = "",
+            lastname = ""
+        )
     }
 
     override fun onCleared() {
@@ -39,11 +44,19 @@ class MainViewModel(
     private fun save(text: String) {
         val params = SaveUserNameParam(name = text)
         val resultData = saveUserNameUseCase.execute(param = params)
-        _stateLive.value = "Save result = $resultData"
+        _stateLive.value = MainState(
+            saveResult = resultData,
+            firstName = _stateLive.value!!.firstName,
+            lastname = _stateLive.value!!.lastname
+        )
     }
 
     private fun load() {
         val userName = getUserNameUseCase.execute()
-        _stateLive.value = "${userName.firstName} ${userName.lastName}"
+        _stateLive.value = MainState(
+            saveResult = _stateLive.value!!.saveResult,
+            firstName = userName.firstName,
+            lastname = userName.lastName
+        )
     }
 }

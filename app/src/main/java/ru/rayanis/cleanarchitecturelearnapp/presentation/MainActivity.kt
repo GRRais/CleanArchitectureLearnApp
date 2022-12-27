@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("AAA" , "Activity created")
 
-        vm.stateLive.observe(this) {
-            b.dataTextView.text = it
+        vm.stateLive.observe(this) { state ->
+            b.dataTextView.text = "${state.firstName} ${state.lastname} ${state.saveResult}"
         }
 
         b.sendButton.setOnClickListener {
